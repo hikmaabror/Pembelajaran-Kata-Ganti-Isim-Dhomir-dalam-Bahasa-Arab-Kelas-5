@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Pembelajaran Bahasa Arab: Dhamir (SD/MI)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Fredoka & Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              yellow: '#FFD166',
+              green: '#06D6A0',
+              blue: '#118AB2',
+              red: '#EF476F',
+              darkBlue: '#073B4C',
+              purple: '#8A2BE2'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%);
+      min-height: 100vh;
+    }
+    
+    .font-kids {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+
+    /* Bounce and Floating Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-soft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .animate-pulse-soft {
+      animation: pulse-soft 2.5s ease-in-out infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #06D6A0;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #118AB2;
+    }
+
+    /* Game Specific Styles inside Embedded Game Container */
+    .game-match-card {
+      min-height: 52px;
+      transition: all 0.2s;
+    }
+    .arabic-font {
+      font-family: 'Traditional Arabic', 'Amiri', 'Scheherazade New', serif;
+    }
+  </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+  <!-- TOP NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-md border-b-4 border-brand-yellow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-3">
+      
+      <!-- Brand / Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('sampul')">
+        <div class="w-12 h-12 bg-gradient-to-tr from-brand-yellow to-brand-red rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg transform -rotate-3 hover:rotate-0 transition">
+          🕌
+        </div>
+        <div>
+          <h1 class="font-kids text-xl md:text-2xl font-bold text-brand-darkBlue leading-tight">
+            Petualangan <span class="text-brand-red">Dhamir</span>
+          </h1>
+          <p class="text-xs text-slate-500 font-semibold">Media Pembelajaran Bahasa Arab Kelas 5 SD/MI</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs & Global Audio Controls -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <nav class="flex flex-wrap items-center gap-1 sm:gap-2">
+          <button id="nav-sampul" onclick="switchTab('sampul')" class="nav-btn px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold transition flex items-center gap-1.5 bg-brand-yellow text-slate-900 shadow-md">
+            <i class="fa-solid fa-house"></i> Sampul
+          </button>
+          <button id="nav-ppt" onclick="switchTab('ppt')" class="nav-btn px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-file-powerpoint text-amber-500"></i> PPT
+          </button>
+          <button id="nav-makalah" onclick="switchTab('makalah')" class="nav-btn px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-file-lines text-blue-500"></i> Makalah
+          </button>
+          <button id="nav-game" onclick="switchTab('game')" class="nav-btn px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-gamepad text-emerald-500"></i> Media Digital
+          </button>
+          <button id="nav-icebreaking" onclick="switchTab('icebreaking')" class="nav-btn px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-music text-pink-500"></i> Ice Breaking
+          </button>
+          <button id="nav-video" onclick="switchTab('video')" class="nav-btn px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-video text-red-500"></i> Video
+          </button>
+        </nav>
+
+        <!-- Global BGM Toggle Switch Button -->
+        <button id="global-bgm-btn" onclick="toggleGlobalBGM()" class="px-3 py-2 rounded-xl text-xs md:text-sm font-kids font-bold bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-2 border-emerald-400 transition flex items-center gap-1.5 shadow-sm">
+          <i id="global-bgm-icon" class="fa-solid fa-volume-high animate-pulse"></i> <span id="global-bgm-text">Musik: ON</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+
+    <!-- ==================== TAB 1: SAMPUL INTERAKTIF (COVER) ==================== -->
+    <section id="tab-sampul" class="tab-content space-y-8 animate-fadeIn">
+      
+      <!-- HERO BANNER FOR KIDS -->
+      <div class="relative bg-gradient-to-r from-brand-blue via-teal-500 to-brand-green rounded-3xl p-6 md:p-10 text-white shadow-2xl overflow-hidden border-4 border-white">
+        <!-- Background Decorative Elements -->
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-32 h-32 bg-yellow-300/20 rounded-full blur-lg pointer-events-none"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
+          <div class="md:col-span-7 space-y-4 text-center md:text-left">
+            <span class="inline-block px-4 py-1.5 bg-yellow-400 text-slate-900 font-kids font-bold text-xs md:text-sm rounded-full shadow-md animate-pulse-soft">
+              🌟 Media Pembelajaran Interaktif Kelas 5 SD/MI
+            </span>
+            <h2 class="font-kids text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide leading-tight text-yellow-300 drop-shadow-md">
+              Petualangan Kata Dhamir <br class="hidden md:block"/> (الضَّمِيْرُ)
+            </h2>
+            <p class="text-sm md:text-base text-teal-50 font-medium leading-relaxed max-w-xl">
+              Halo Adik-adik Sholeh & Sholehah! Yuk belajar kata ganti dalam Bahasa Arab dengan cara yang seru, menonton video, dan bermain game interaktif!
+            </p>
+            
+            <div class="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
+              <button onclick="switchTab('game')" class="px-6 py-3 bg-brand-yellow hover:bg-yellow-300 text-slate-900 font-kids font-bold rounded-2xl shadow-lg transform hover:-translate-y-1 transition flex items-center gap-2">
+                <i class="fa-solid fa-play text-lg"></i> Mulai Main Game!
+              </button>
+              <button onclick="switchTab('video')" class="px-6 py-3 bg-white/20 hover:bg-white/30 text-white font-kids font-bold rounded-2xl backdrop-blur-sm shadow-md transition flex items-center gap-2 border border-white/30">
+                <i class="fa-solid fa-film"></i> Nonton Video
+              </button>
+              <!-- Tombol Sakelar Musik Web -->
+              <button onclick="toggleGlobalBGM()" class="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-kids font-bold rounded-2xl shadow-lg transform hover:-translate-y-1 transition flex items-center gap-2 border border-pink-300">
+                <i id="hero-bgm-icon" class="fa-solid fa-music"></i> <span id="hero-bgm-text">Musik Pengiring: ON</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Cover Mascot / Visual -->
+          <div class="md:col-span-5 flex justify-center relative">
+            <div class="w-64 h-64 md:w-72 md:h-72 bg-white/20 backdrop-blur-md rounded-full p-4 border-4 border-white/40 shadow-2xl flex flex-col items-center justify-center text-center animate-float">
+              <div class="text-6xl mb-2">👦🏻🕌👧🏻</div>
+              <div class="arabic-font text-3xl font-bold text-yellow-300 drop-shadow">هُمْ - هُوَ - أَنَا - أَنْتَ</div>
+              <div class="font-kids text-xs text-white mt-2 px-4 py-1 bg-brand-red rounded-full shadow">
+                Belajar Dhamir Munfashil
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK MENU GRID -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        
+        <div onclick="switchTab('ppt')" class="bg-white p-5 rounded-3xl border-2 border-amber-200 shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 cursor-pointer text-center group">
+          <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-500 text-2xl mx-auto mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-file-powerpoint"></i>
+          </div>
+          <h3 class="font-kids font-bold text-slate-800 text-sm">Presentasi PPT</h3>
+          <p class="text-xs text-slate-500 mt-1">Materi Canva Interaktif</p>
+        </div>
+
+        <div onclick="switchTab('makalah')" class="bg-white p-5 rounded-3xl border-2 border-blue-200 shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 cursor-pointer text-center group">
+          <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-500 text-2xl mx-auto mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-file-lines"></i>
+          </div>
+          <h3 class="font-kids font-bold text-slate-800 text-sm">Makalah Lengkap</h3>
+          <p class="text-xs text-slate-500 mt-1">Dokumen Google Drive</p>
+        </div>
+
+        <div onclick="switchTab('game')" class="bg-white p-5 rounded-3xl border-2 border-emerald-200 shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 cursor-pointer text-center group">
+          <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-500 text-2xl mx-auto mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-gamepad"></i>
+          </div>
+          <h3 class="font-kids font-bold text-slate-800 text-sm">Media Digital</h3>
+          <p class="text-xs text-slate-500 mt-1">Game Petualangan Dhamir</p>
+        </div>
+
+        <div onclick="switchTab('icebreaking')" class="bg-white p-5 rounded-3xl border-2 border-pink-200 shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 cursor-pointer text-center group">
+          <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center text-pink-500 text-2xl mx-auto mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-icons"></i>
+          </div>
+          <h3 class="font-kids font-bold text-slate-800 text-sm">Ice Breaking</h3>
+          <p class="text-xs text-slate-500 mt-1">Lagu TikTok Ceria</p>
+        </div>
+
+        <div onclick="switchTab('video')" class="bg-white p-5 rounded-3xl border-2 border-red-200 shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 cursor-pointer text-center group col-span-2 sm:col-span-1">
+          <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-red-500 text-2xl mx-auto mb-3 group-hover:scale-110 transition">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <h3 class="font-kids font-bold text-slate-800 text-sm">Video Pembelajaran</h3>
+          <p class="text-xs text-slate-500 mt-1">Penjelasan YouTube</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: PPT PRESENTASI ==================== -->
+    <section id="tab-ppt" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-xl border-4 border-amber-200">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="px-3 py-1 bg-amber-100 text-amber-700 font-kids font-bold text-xs rounded-full">
+              <i class="fa-solid fa-file-powerpoint font-bold"></i> PPT Presentasi Google Drive
+            </span>
+            <h2 class="font-kids text-2xl md:text-3xl font-bold text-slate-800 mt-1">
+              Slide Materi Pembelajaran Dhamir
+            </h2>
+          </div>
+          <a href="https://drive.google.com/file/d/1-3ulxJeCVEHhBVSGHVAdl0flXk-nine8/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-kids font-bold rounded-xl shadow transition flex items-center gap-2 text-sm">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Akses PPT Terbuka
+          </a>
+        </div>
+
+        <p class="text-slate-600 text-sm mb-4">
+          Berikut adalah materi slide presentasi interaktif mengenai Dhamir. Dapat dibuka kapan saja tanpa batasan waktu melalui tautan Google Drive terbuka.
+        </p>
+
+        <!-- Container Frame PPT Google Drive Viewer -->
+        <div class="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-slate-200 bg-slate-100 shadow-inner">
+          <iframe src="https://drive.google.com/file/d/1-3ulxJeCVEHhBVSGHVAdl0flXk-nine8/preview" class="w-full h-full border-0" allow="autoplay"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: MAKALAH ==================== -->
+    <section id="tab-makalah" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-xl border-4 border-blue-200">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 font-kids font-bold text-xs rounded-full">
+              <i class="fa-solid fa-file-pdf"></i> Dokumen Google Drive
+            </span>
+            <h2 class="font-kids text-2xl md:text-3xl font-bold text-slate-800 mt-1">
+              Makalah Pembelajaran Dhamir
+            </h2>
+          </div>
+          <a href="https://drive.google.com/file/d/1wZz2kVkcw_zV_MvNPs5eM9ghu2cv5A6N/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-kids font-bold rounded-xl shadow transition flex items-center gap-2 text-sm">
+            <i class="fa-solid fa-download"></i> Akses Makalah Terbuka
+          </a>
+        </div>
+
+        <p class="text-slate-600 text-sm mb-4">
+          Dokumen ini berisi landasan teori, metode pembelajaran, serta rangkuman lengkap mengenai tata bahasa kata ganti (Dhamir) untuk kelas 5 MI/SD.
+        </p>
+
+        <!-- Embed PDF Google Drive Viewer -->
+        <div class="w-full h-[600px] rounded-2xl overflow-hidden border-2 border-slate-200 bg-slate-100 shadow-inner">
+          <iframe src="https://drive.google.com/file/d/1wZz2kVkcw_zV_MvNPs5eM9ghu2cv5A6N/preview" class="w-full h-full border-0" allow="autoplay"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: MEDIA DIGITAL (GAME) ==================== -->
+    <section id="tab-game" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-4 md:p-6 shadow-xl border-4 border-emerald-300">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4 px-2">
+          <div>
+            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 font-kids font-bold text-xs rounded-full">
+              <i class="fa-solid fa-laptop-code"></i> Media Pembelajaran Digital Interaktif
+            </span>
+            <h2 class="font-kids text-2xl md:text-3xl font-bold text-slate-800 mt-1">
+              🎮 Game Petualangan Dhamir
+            </h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="restartEmbeddedGame()" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-kids font-bold rounded-xl text-xs shadow transition">
+              <i class="fa-solid fa-rotate-right"></i> Reset Game
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME EMBEDDED CONTAINER -->
+        <div id="game-container-box" class="w-full max-w-2xl mx-auto bg-slate-50 border-4 border-indigo-200 rounded-3xl shadow-xl overflow-hidden">
+          
+          <!-- Header Game Bar -->
+          <div class="bg-gradient-to-r from-red-500 to-rose-600 text-white p-4 text-center relative">
+            <h1 class="font-kids text-2xl tracking-wide">PETUALANGAN DHAMIR</h1>
+            <p class="text-xs font-semibold text-rose-100">Game Interaktif Kelas 5 SD / MI</p>
+          </div>
+
+          <!-- Stats Bar -->
+          <div class="bg-amber-100 px-6 py-3 flex justify-between items-center font-bold text-slate-800 border-b-2 border-amber-300">
+            <div class="font-kids">Skor: <span id="game-score" class="text-emerald-600 text-lg">0</span></div>
+            <div id="game-hearts" class="text-xl text-red-500 tracking-widest">❤️❤️❤️</div>
+          </div>
+
+          <!-- SCREEN 1: GAME WELCOME -->
+          <div id="screen-welcome" class="p-6 text-center space-y-5">
+            <div class="bg-gradient-to-b from-cyan-50 to-white border-2 border-dashed border-cyan-300 rounded-2xl p-5 shadow-sm">
+              <span class="bg-amber-300 text-slate-800 text-xs font-bold px-3 py-1 rounded-full shadow">🌟 MEDIA PEMBELAJARAN DIGITAL</span>
+              <h2 class="font-kids text-2xl text-indigo-600 mt-3 font-bold">PETUALANGAN DHAMIR</h2>
+              <div class="text-4xl my-3 flex justify-center gap-3">
+                <span>🕌</span><span>👦</span><span>📖</span><span>👧</span><span>✨</span>
+              </div>
+              <p class="text-xs md:text-sm text-slate-600">
+                Mari belajar kata ganti bahasa Arab (<b class="arabic-font text-lg">الضَّمِيْرُ</b>) dengan cara seru dan menyenangkan! Pilih menu di bawah untuk mulai berpetualang.
+              </p>
+            </div>
+
+            <div class="flex flex-col items-center gap-3 max-w-xs mx-auto">
+              <button onclick="startMateri()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-kids font-bold rounded-2xl shadow-md transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <span>📚</span> Pelajari Materi 14 Dhamir
+              </button>
+              <button onclick="startQuizWithAudio()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-kids font-bold rounded-2xl shadow-md transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <span>🚀</span> Mulai Kuis Interaktif
+              </button>
+              <button onclick="startMatchingWithAudio()" class="w-full py-3 bg-sky-500 hover:bg-sky-600 text-white font-kids font-bold rounded-2xl shadow-md transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <span>🧩</span> Permainan Jodohkan Kata
+              </button>
+            </div>
+          </div>
+
+          <!-- SCREEN 2: GAME MATERI -->
+          <div id="screen-materi" class="p-6 hidden text-left space-y-4">
+            <div class="flex justify-between items-center pb-2 border-b">
+              <h3 class="font-kids text-lg text-slate-800">📖 Materi 14 Dhamir</h3>
+              <button onclick="showWelcome()" class="text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-lg font-bold">Menu</button>
+            </div>
+
+            <div class="max-h-80 overflow-y-auto space-y-3 pr-2">
+              <div class="bg-indigo-50 border-l-4 border-indigo-500 p-3 rounded-r-xl text-xs text-slate-700 space-y-1">
+                <h4 class="font-bold text-indigo-700">📌 Apa itu Dhamir (الضَّمِيْرُ)?</h4>
+                <p><b>Dhamir (Kata Ganti)</b> adalah kata yang digunakan untuk menggantikan nama orang, benda, atau lawan bicara agar pengucapan kalimat lebih ringkas.</p>
+              </div>
+
+              <!-- List Group -->
+              <div class="space-y-2">
+                <h4 class="text-xs font-bold text-rose-500">1. Orang Ketiga / Yang Dicaritakan (الغَائِبُ)</h4>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">هُوَ</span> <span>Dia (1 Laki-laki)</span>
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">هُمَا</span> <span>Mereka Berdua (2 L)</span>
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">هُمْ</span> <span>Mereka (Banyak L)</span>
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">هِيَ</span> <span>Dia (1 Perempuan)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <h4 class="text-xs font-bold text-sky-500">2. Orang Kedua / Lawan Bicara (المُخَاطَبُ)</h4>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">أَنْتَ</span> <span>Kamu (1 L)</span>
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">أَنْتِ</span> <span>Kamu (1 P)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <h4 class="text-xs font-bold text-emerald-500">3. Orang Pertama / Pembicara (المُتَكَلِّمُ)</h4>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">أَنَا</span> <span>Saya (L/P)</span>
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border font-medium flex justify-between">
+                    <span class="arabic-font font-bold text-indigo-600 text-base">نَحْنُ</span> <span>Kami / Kita (L/P)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="startQuizWithAudio()" class="w-full py-2.5 bg-emerald-500 text-white font-kids font-bold rounded-xl shadow">Uji Pemahaman (Mulai Kuis) 🚀</button>
+          </div>
+
+          <!-- SCREEN 3: GAME QUIZ -->
+          <div id="screen-quiz" class="p-6 hidden text-center space-y-4">
+            <div class="bg-white border-2 border-dashed border-indigo-300 rounded-2xl p-4 shadow-sm">
+              <span id="q-emoji" class="text-4xl block mb-2">📖</span>
+              <div id="q-text" class="font-kids text-base md:text-lg text-slate-800">Pertanyaan...</div>
+            </div>
+
+            <div id="options-container" class="grid grid-cols-2 gap-3">
+              <!-- Options filled by JS -->
+            </div>
+
+            <div id="feedback" class="h-6 font-bold text-sm"></div>
+
+            <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+              <div id="progress-bar" class="bg-emerald-500 h-full w-0 transition-all"></div>
+            </div>
+
+            <button onclick="showWelcome()" class="text-xs text-sky-600 font-bold hover:underline">← Kembali ke Menu</button>
+          </div>
+
+          <!-- SCREEN 4: GAME MATCHING -->
+          <div id="screen-match" class="p-4 md:p-6 hidden text-center space-y-3">
+            <h3 class="font-kids text-lg text-slate-800">Jodohkan Dhamir & Artinya!</h3>
+            <p class="text-xs text-slate-500">Pilih 1 Dhamir di kiri, lalu pilih artinya di kanan!</p>
+
+            <div class="grid grid-cols-2 gap-3 max-h-72 overflow-y-auto p-2 bg-slate-100 rounded-xl border border-dashed border-sky-300">
+              <div>
+                <div class="text-xs font-bold text-sky-600 border-b pb-1 mb-2">Bagian A (Dhamir)</div>
+                <div id="match-col-arabic" class="space-y-2"></div>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-emerald-600 border-b pb-1 mb-2">Bagian B (Artinya)</div>
+                <div id="match-col-text" class="space-y-2"></div>
+              </div>
+            </div>
+
+            <div id="match-feedback" class="h-6 font-bold text-sm"></div>
+            <button onclick="showWelcome()" class="text-xs text-sky-600 font-bold hover:underline">← Kembali ke Menu</button>
+          </div>
+
+          <!-- SCREEN 5: GAME RESULT -->
+          <div id="screen-result" class="p-8 hidden text-center space-y-4">
+            <div id="res-emoji" class="text-6xl">🏆</div>
+            <h2 id="res-title" class="font-kids text-2xl text-slate-800">Luar Biasa!</h2>
+            <p id="res-desc" class="text-sm text-slate-600">Kamu mendapatkan skor: <b id="final-score" class="text-emerald-600 text-xl">0</b></p>
+            <button onclick="showWelcome()" class="px-6 py-3 bg-emerald-500 text-white font-kids font-bold rounded-2xl shadow-lg">Main Lagi 🔄</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: ICE BREAKING SONG ==================== -->
+    <section id="tab-icebreaking" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-xl border-4 border-pink-300">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="px-3 py-1 bg-pink-100 text-pink-700 font-kids font-bold text-xs rounded-full">
+              <i class="fa-brands fa-tiktok"></i> TikTok Ice Breaking
+            </span>
+            <h2 class="font-kids text-2xl md:text-3xl font-bold text-slate-800 mt-1">
+              🎉 Lagu Ice Breaking Ceria
+            </h2>
+          </div>
+          <a href="https://vt.tiktok.com/ZSgfk7EVR/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-slate-900 hover:bg-black text-white font-kids font-bold rounded-xl shadow transition flex items-center gap-2 text-sm">
+            <i class="fa-brands fa-tiktok text-pink-400"></i> Buka Video di TikTok
+          </a>
+        </div>
+
+        <p class="text-slate-600 text-sm mb-6">
+          Ayo gerak dan bernyanyi bersama dengan video ice breaking ini agar suasana kelas menjadi lebih ceria dan bersemangat!
+        </p>
+
+        <!-- TikTok Responsive Container -->
+        <div class="flex justify-center">
+          <div class="w-full max-w-sm bg-slate-900 rounded-3xl overflow-hidden shadow-2xl p-4 border-4 border-slate-800 text-center text-white space-y-4">
+            <div class="text-5xl my-4 animate-bounce">🎶🕺💃</div>
+            <h3 class="font-kids text-xl text-pink-300">Ice Breaking Dhamir TikTok</h3>
+            <p class="text-xs text-slate-300 px-4">
+              Nikmati lagu dan gerakan seru untuk mencairkan suasana belajar bahasa Arab.
+            </p>
+            <a href="https://vt.tiktok.com/ZSgfk7EVR/" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-kids font-bold rounded-2xl shadow-lg hover:scale-105 transition">
+              <i class="fa-solid fa-circle-play mr-2"></i> Putar Lagu TikTok
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: VIDEO PEMBELAJARAN ==================== -->
+    <section id="tab-video" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-xl border-4 border-red-300">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="px-3 py-1 bg-red-100 text-red-700 font-kids font-bold text-xs rounded-full">
+              <i class="fa-brands fa-youtube"></i> Video Edukasi YouTube
+            </span>
+            <h2 class="font-kids text-2xl md:text-3xl font-bold text-slate-800 mt-1">
+              🎬 Video Pembelajaran Kata Dhamir
+            </h2>
+          </div>
+          <a href="https://youtu.be/kCfA-9Sb6dQ?feature=shared" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-kids font-bold rounded-xl shadow transition flex items-center gap-2 text-sm">
+            <i class="fa-brands fa-youtube"></i> Tonton di YouTube
+          </a>
+        </div>
+
+        <p class="text-slate-600 text-sm mb-4">
+          Saksikan penjelasan materi Dhamir melalui video animasi menarik berikut untuk mempermudah pemahaman.
+        </p>
+
+        <!-- YouTube Embed Player -->
+        <div class="w-full aspect-video rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg bg-black">
+          <iframe class="w-full h-full border-0" src="https://www.youtube.com/embed/kCfA-9Sb6dQ" title="Video Pembelajaran Dhamir" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t-2 border-slate-200 py-6 mt-10">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+      <p class="font-kids text-slate-700 text-sm font-bold">
+        Media Digital Pembelajaran Bahasa Arab SD/MI &copy; 2026
+      </p>
+      <p class="text-xs text-slate-500">
+        Didesain khusus interaktif & menyenangkan untuk anak SD/MI
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // GLOBAL BGM SYSTEM (Web Background Music)
+    let globalAudioCtx = null;
+    let isGlobalBGMPlaying = false;
+    let bgmLoopTimer = null;
+
+    function initGlobalAudio() {
+      if (!globalAudioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          globalAudioCtx = new AudioContext();
+        }
+      }
+      if (globalAudioCtx && globalAudioCtx.state === 'suspended') {
+        globalAudioCtx.resume();
+      }
+    }
+
+    function toggleGlobalBGM() {
+      initGlobalAudio();
+      isGlobalBGMPlaying = !isGlobalBGMPlaying;
+      updateBGMUI();
+
+      if (isGlobalBGMPlaying) {
+        startWebBGM();
+      } else {
+        stopWebBGM();
+      }
+    }
+
+    function updateBGMUI() {
+      const gBtnText = document.getElementById('global-bgm-text');
+      const gBtnIcon = document.getElementById('global-bgm-icon');
+      const hBtnText = document.getElementById('hero-bgm-text');
+      const hBtnIcon = document.getElementById('hero-bgm-icon');
+
+      if (isGlobalBGMPlaying) {
+        if (gBtnText) gBtnText.innerText = "Musik: ON";
+        if (gBtnIcon) gBtnIcon.className = "fa-solid fa-volume-high animate-pulse";
+        if (hBtnText) hBtnText.innerText = "Musik Pengiring: ON";
+        if (hBtnIcon) hBtnIcon.className = "fa-solid fa-music animate-spin";
+      } else {
+        if (gBtnText) gBtnText.innerText = "Musik: OFF";
+        if (gBtnIcon) gBtnIcon.className = "fa-solid fa-volume-xmark";
+        if (hBtnText) hBtnText.innerText = "Musik Pengiring: OFF";
+        if (hBtnIcon) hBtnIcon.className = "fa-solid fa-volume-xmark";
+      }
+    }
+
+    function startWebBGM() {
+      stopWebBGM();
+      if (!isGlobalBGMPlaying || !globalAudioCtx) return;
+
+      // Melodi pengiring bernuansa Ceria Islami & Ramah Anak
+      const notes = [
+        { note: 261.63, duration: 0.35 }, // C4
+        { note: 329.63, duration: 0.35 }, // E4
+        { note: 392.00, duration: 0.35 }, // G4
+        { note: 523.25, duration: 0.5 },  // C5
+        { note: 440.00, duration: 0.35 }, // A4
+        { note: 392.00, duration: 0.35 }, // G4
+        { note: 349.23, duration: 0.5 },  // F4
+        { note: 329.63, duration: 0.35 }, // E4
+        { note: 293.66, duration: 0.35 }, // D4
+        { note: 392.00, duration: 0.6 }   // G4
+      ];
+
+      let currentNoteIndex = 0;
+
+      function playNextBGMNote() {
+        if (!isGlobalBGMPlaying || !globalAudioCtx) return;
+
+        try {
+          const item = notes[currentNoteIndex % notes.length];
+          const osc = globalAudioCtx.createOscillator();
+          const gain = globalAudioCtx.createGain();
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(item.note, globalAudioCtx.currentTime);
+
+          // Volume lembut agar tidak mengganggu pendengaran anak-anak
+          gain.gain.setValueAtTime(0.08, globalAudioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, globalAudioCtx.currentTime + item.duration);
+
+          osc.connect(gain);
+          gain.connect(globalAudioCtx.destination);
+
+          osc.start();
+          osc.stop(globalAudioCtx.currentTime + item.duration);
+
+          currentNoteIndex++;
+          bgmLoopTimer = setTimeout(playNextBGMNote, item.duration * 1000 + 100);
+        } catch(e) {}
+      }
+
+      playNextBGMNote();
+    }
+
+    function stopWebBGM() {
+      if (bgmLoopTimer) {
+        clearTimeout(bgmLoopTimer);
+        bgmLoopTimer = null;
+      }
+    }
+
+    // Otomatis aktifkan AudioContext saat ada interaksi pertama di halaman web
+    window.addEventListener('click', () => {
+      initGlobalAudio();
+    }, { once: true });
+
+    // TAB SWITCHING SYSTEM
+    function switchTab(tabId) {
+      // Hide all contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+
+      // Show target content
+      const target = document.getElementById('tab-' + tabId);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+
+      // Update Nav Buttons Styles
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-yellow', 'text-slate-900', 'shadow-md');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+      });
+
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+        activeBtn.classList.add('bg-brand-yellow', 'text-slate-900', 'shadow-md');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================= EMBEDDED GAME LOGIC =================
+    function playSound(type) {
+      if (!isGlobalBGMPlaying) return;
+      initGlobalAudio();
+      if (!globalAudioCtx) return;
+
+      try {
+        const osc = globalAudioCtx.createOscillator();
+        const gain = globalAudioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(globalAudioCtx.destination);
+
+        const now = globalAudioCtx.currentTime;
+
+        if (type === 'correct') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1);
+          osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(300, now);
+          osc.frequency.linearRampToValueAtTime(150, now + 0.25);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+      } catch(e) {}
+    }
+
+    const quizData = [
+      { emoji: "👦", text: "1. Arti dari kata هُوَ adalah ....", opts: ["Saya", "Dia laki-laki", "Dia perempuan", "Kami"], ans: 1 },
+      { emoji: "🙋", text: "2. Isim dhomir yang berarti “saya” adalah ....", opts: ["أَنَا", "أَنْتَ", "هِيَ", "نَحْنُ"], ans: 0 },
+      { emoji: "👧", text: "3. Kata هِيَ digunakan untuk menunjukkan ....", opts: ["Dia laki-laki", "Kamu laki-laki", "Dia perempuan", "Mereka"], ans: 2 },
+      { emoji: "👈👦", text: "4. Bahasa Arab dari “kamu laki-laki” adalah ....", opts: ["أَنْتِ", "أَنْتَ", "هُوَ", "أَنَا"], ans: 1 },
+      { emoji: "👥", text: "5. Arti dari kata نَحْنُ adalah ....", opts: ["Mereka", "Dia", "Kamu", "Kami"], ans: 3 },
+      { emoji: "👦", text: "6. Isim dhomir yang tepat untuk menggantikan nama Ahmad adalah ....", opts: ["هِيَ", "أَنْتِ", "هُوَ", "أَنَا"], ans: 2 },
+      { emoji: "👧📖", text: "7. Jika Fatimah sedang membaca buku, kata ganti yang tepat untuk Fatimah adalah ....", opts: ["هُوَ", "هِيَ", "أَنْتَ", "نَحْنُ"], ans: 1 },
+      { emoji: "👈👧", text: "8. Bahasa Arab dari “kamu perempuan” meyakinkan adalah ....", opts: ["أَنْتَ", "هِيَ", "أَنْتِ", "هُوَ"], ans: 2 },
+      { emoji: "👈👥", text: "9. Kata أَنْتُمْ berarti ....", opts: ["Kalian laki-laki", "Dia perempuan", "Saya", "Kami"], ans: 0 },
+      { emoji: "👨‍🎓", text: "10. Perhatikan kalimat berikut!\nأَنَا طَالِبٌ\nArti kalimat tersebut adalah ....", opts: ["Dia seorang siswa", "Kamu seorang siswa", "Saya seorang siswa", "Kami seorang siswa"], ans: 2 }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let lives = 3;
+    let activeQuizQuestions = [];
+
+    function updateStats() {
+      document.getElementById('game-score').innerText = score;
+      document.getElementById('game-hearts').innerText = "❤️".repeat(lives);
+    }
+
+    function showGameScreen(id) {
+      ['screen-welcome', 'screen-materi', 'screen-quiz', 'screen-match', 'screen-result'].forEach(s => {
+        document.getElementById(s).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function showWelcome() {
+      score = 0;
+      lives = 3;
+      currentQ = 0;
+      updateStats();
+      showGameScreen('screen-welcome');
+    }
+
+    function startMateri() {
+      showGameScreen('screen-materi');
+    }
+
+    function startQuizWithAudio() {
+      if (!isGlobalBGMPlaying) toggleGlobalBGM();
+      startQuiz();
+    }
+
+    function startMatchingWithAudio() {
+      if (!isGlobalBGMPlaying) toggleGlobalBGM();
+      startMatching();
+    }
+
+    function startQuiz() {
+      currentQ = 0;
+      score = 0;
+      lives = 3;
+      activeQuizQuestions = [...quizData];
+      updateStats();
+      showGameScreen('screen-quiz');
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const q = activeQuizQuestions[currentQ];
+      document.getElementById('q-emoji').innerText = q.emoji;
+      document.getElementById('q-text').innerText = q.text;
+      document.getElementById('feedback').innerText = "";
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = "";
+
+      q.opts.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'p-3 text-xs md:text-sm font-bold text-slate-700 bg-white border-2 border-slate-200 rounded-xl shadow hover:bg-sky-100 transition';
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(idx, btn);
+        container.appendChild(btn);
+      });
+
+      document.getElementById('progress-bar').style.width = `${((currentQ) / activeQuizQuestions.length) * 100}%`;
+    }
+
+    function checkAnswer(selectedIdx, btn) {
+      const q = activeQuizQuestions[currentQ];
+      const allBtns = document.getElementById('options-container').children;
+      for (let b of allBtns) b.disabled = true;
+
+      if (selectedIdx === q.ans) {
+        btn.className = "p-3 text-xs md:text-sm font-bold text-emerald-800 bg-emerald-200 border-2 border-emerald-500 rounded-xl shadow";
+        playSound('correct');
+        document.getElementById('feedback').innerText = "✨ Hebat! Jawabanmu Benar!";
+        document.getElementById('feedback').className = "h-6 font-bold text-sm text-emerald-600";
+        score += 10;
+      } else {
+        btn.className = "p-3 text-xs md:text-sm font-bold text-rose-800 bg-rose-200 border-2 border-rose-500 rounded-xl shadow";
+        allBtns[q.ans].className = "p-3 text-xs md:text-sm font-bold text-emerald-800 bg-emerald-200 border-2 border-emerald-500 rounded-xl shadow";
+        playSound('wrong');
+        document.getElementById('feedback').innerText = "❌ Yah, kurang tepat!";
+        document.getElementById('feedback').className = "h-6 font-bold text-sm text-rose-600";
+        lives--;
+      }
+
+      updateStats();
+
+      setTimeout(() => {
+        if (lives <= 0) {
+          endGame(false);
+        } else {
+          currentQ++;
+          if (currentQ < activeQuizQuestions.length) {
+            loadQuestion();
+          } else {
+            endGame(true);
+          }
+        }
+      }, 1500);
+    }
+
+    const fullMatchPairs = [
+      { ar: "هُوَ", text: "Dia (1 laki-laki)" },
+      { ar: "هِيَ", text: "Dia (1 perempuan)" },
+      { ar: "أَنْتَ", text: "Kamu (1 laki-laki)" },
+      { ar: "أَنْتِ", text: "Kamu (1 perempuan)" },
+      { ar: "أَنَا", text: "Saya / Aku" },
+      { ar: "نَحْنُ", text: "Kami / Kita" },
+      { ar: "هُمْ", text: "Mereka (laki-laki)" },
+      { ar: "أَنْتُمْ", text: "Kalian (laki-laki)" }
+    ];
+
+    let selectedArabicCard = null;
+    let selectedTextCard = null;
+    let totalPairsCount = 0;
+    let matchedPairsCount = 0;
+
+    function startMatching() {
+      showGameScreen('screen-match');
+      const arCol = document.getElementById('match-col-arabic');
+      const textCol = document.getElementById('match-col-text');
+      arCol.innerHTML = "";
+      textCol.innerHTML = "";
+      document.getElementById('match-feedback').innerText = "";
+
+      selectedArabicCard = null;
+      selectedTextCard = null;
+      matchedPairsCount = 0;
+      totalPairsCount = fullMatchPairs.length;
+
+      let arList = [];
+      let textList = [];
+
+      fullMatchPairs.forEach((pair, index) => {
+        const id = index + 1;
+        arList.push({ ar: pair.ar, id: id });
+        textList.push({ text: pair.text, id: id });
+      });
+
+      arList.sort(() => Math.random() - 0.5);
+      textList.sort(() => Math.random() - 0.5);
+
+      arList.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'p-2 bg-white border-2 border-indigo-200 rounded-xl font-bold arabic-font text-lg text-indigo-700 cursor-pointer shadow hover:bg-indigo-50 transition game-match-card flex items-center justify-center';
+        card.innerText = item.ar;
+        card.dataset.id = item.id;
+        card.onclick = () => selectArabicCard(card);
+        arCol.appendChild(card);
+      });
+
+      textList.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'p-2 bg-amber-100 border-2 border-amber-300 rounded-xl font-bold text-xs text-slate-800 cursor-pointer shadow hover:bg-amber-200 transition game-match-card flex items-center justify-center';
+        card.innerText = item.text;
+        card.dataset.id = item.id;
+        card.onclick = () => selectTextCard(card);
+        textCol.appendChild(card);
+      });
+    }
+
+    function selectArabicCard(card) {
+      if (card.classList.contains('opacity-20')) return;
+      if (selectedArabicCard) selectedArabicCard.classList.remove('ring-4', 'ring-indigo-400');
+      card.classList.add('ring-4', 'ring-indigo-400');
+      selectedArabicCard = card;
+      checkTablePair();
+    }
+
+    function selectTextCard(card) {
+      if (card.classList.contains('opacity-20')) return;
+      if (selectedTextCard) selectedTextCard.classList.remove('ring-4', 'ring-amber-400');
+      card.classList.add('ring-4', 'ring-amber-400');
+      selectedTextCard = card;
+      checkTablePair();
+    }
+
+    function checkTablePair() {
+      if (selectedArabicCard && selectedTextCard) {
+        const c1 = selectedArabicCard;
+        const c2 = selectedTextCard;
+
+        if (c1.dataset.id === c2.dataset.id) {
+          playSound('correct');
+          c1.classList.add('opacity-20', 'pointer-events-none');
+          c2.classList.add('opacity-20', 'pointer-events-none');
+          score += 10;
+          matchedPairsCount++;
+          updateStats();
+
+          document.getElementById('match-feedback').innerText = "✨ Cocok!";
+          document.getElementById('match-feedback').className = "h-6 font-bold text-sm text-emerald-600";
+
+          if (matchedPairsCount === totalPairsCount) {
+            setTimeout(() => endGame(true), 800);
+          }
+        } else {
+          playSound('wrong');
+          document.getElementById('match-feedback').innerText = "❌ Kurang pas, coba lagi!";
+          document.getElementById('match-feedback').className = "h-6 font-bold text-sm text-rose-600";
+
+          setTimeout(() => {
+            c1.classList.remove('ring-4', 'ring-indigo-400');
+            c2.classList.remove('ring-4', 'ring-amber-400');
+          }, 500);
+        }
+
+        selectedArabicCard = null;
+        selectedTextCard = null;
+      }
+    }
+
+    function endGame(win) {
+      showGameScreen('screen-result');
+      document.getElementById('final-score').innerText = score;
+      if (win) {
+        document.getElementById('res-emoji').innerText = "🏆";
+        document.getElementById('res-title').innerText = "MasyaAllah, Kamu Menang!";
+        document.getElementById('res-desc').innerText = `Selamat! Kamu berhasil menyelesaikan game dengan skor: ${score}`;
+      } else {
+        document.getElementById('res-emoji').innerText = "💪";
+        document.getElementById('res-title').innerText = "Jangan Menyerah!";
+        document.getElementById('res-desc').innerText = `Kesempatanmu habis. Yuk coba lagi untuk dapatkan nilai sempurna!`;
+      }
+    }
+
+    function restartEmbeddedGame() {
+      showWelcome();
+    }
+  </script>
+</body>
+</html>
